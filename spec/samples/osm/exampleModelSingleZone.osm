@@ -2889,3 +2889,9 @@ OS:OtherEquipment,
   ,                                       !- Fuel Type
   General;                                !- End-Use Subcategory
 
+OS:WaterUse:Equipment:Definition,
+  {1f9786d1-22c8-486c-abe5-bc27deb7bc94}, !- Handle
+  Water Use Equipment Definition 1,       !- Name
+  ,                                       !- End-Use Subcategory
+  0.01;                                   !- Peak Flow Rate {m3/s}
+

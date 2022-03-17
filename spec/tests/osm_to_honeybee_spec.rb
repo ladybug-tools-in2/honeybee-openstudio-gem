@@ -88,6 +88,14 @@ RSpec.describe Honeybee do
     file = File.join(File.dirname(__FILE__), '../samples/osm/exampleModelSingleZone.osm')
     vt = OpenStudio::OSVersion::VersionTranslator.new
     openstudio_model = vt.loadModel(file)
+
+    #water_use_equipment_def = OpenStudio::Model::WaterUseEquipmentDefinition.new(openstudio_model.get)
+    #water_use_equipment_def.setPeakFlowRate(0.1)
+    #water_use_equipment = OpenStudio::Model::WaterUseEquipment.new(water_use_equipment_def)
+    #water_use_equipment.setName('Water Use Equipment')
+    
+    #space = openstudio_model.get.getSpaces[0]
+    
     honeybee = Honeybee::Model.translate_from_osm_file(file)
     honeybee.validation_errors.each {|error| puts error}
 
@@ -102,6 +110,9 @@ RSpec.describe Honeybee do
     expect(hash[:rooms][0][:properties][:energy][:setpoint]).not_to be nil
     expect(hash[:rooms][0][:properties][:energy][:setpoint][:heating_schedule]).to eq 'Heating Schedule Default'
     expect(hash[:rooms][0][:properties][:energy][:setpoint][:cooling_schedule]).to eq 'Cooling Schedule Default'
+
+    # Check water use equipment
+    #expect(hash[:rooms][0][:properties][:energy][:service_hot_water]).to eq ''
 
     process_load = openstudio_model.get.getOtherEquipmentByName('Other Equipment 1')
     process_load.get.setFuelType('Electricity')

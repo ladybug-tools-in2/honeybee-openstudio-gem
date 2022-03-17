@@ -132,7 +132,15 @@ module Honeybee
 
     def self.rooms_from_model(openstudio_model)
       result = []
+      water_use_equipment = {}
       openstudio_model.getSpaces.each do |space|
+        # loop through all the water use equipment in the space
+        space.waterUseEquipment.each do |water_use_eq|
+
+          name = water_use_eq.nameString
+          # store the water use equipment in a dictionary 
+          water_use_equipment[name] = water_use_eq
+        end
         result << Room.from_space(space)
       end
       result
